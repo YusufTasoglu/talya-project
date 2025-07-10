@@ -1,41 +1,64 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f9f9f9;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
     color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-  }
-  
-  .container {
+    min-height: 100vh;
+}
+
+.container {
     text-align: center;
-    padding: 40px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  }
-  
-  .links a {
+    padding: 48px 32px 32px 32px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60,60,120,0.12);
+    max-width: 400px;
+    width: 100%;
+    backdrop-filter: blur(2px);
+}
+
+.links {
+    margin: 24px 0 12px 0;
+}
+.links a {
     display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    margin: 10px 8px;
+    padding: 12px 28px;
+    background: linear-gradient(90deg, #4CAF50 60%, #43e97b 100%);
     color: white;
     text-decoration: none;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .links a:hover {
-    background-color: #388e3c;
-  }
-  
-  footer {
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: #777;
-  }
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1.08em;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.links a:hover {
+    background: linear-gradient(90deg, #388e3c 60%, #43e97b 100%);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(76,175,80,0.18);
+}
+footer {
+    margin-top: 28px;
+    font-size: 0.98em;
+    color: #888;
+    letter-spacing: 0.01em;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+@media (max-width: 500px) {
+    .container {
+        padding: 24px 8px 16px 8px;
+        max-width: 98vw;
+    }
+    .links a {
+        padding: 10px 8vw;
+        font-size: 1em;
+    }
+}
   
