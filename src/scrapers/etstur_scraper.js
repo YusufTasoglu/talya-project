@@ -1,57 +1,96 @@
-// scrapers/etstur_scraper.js
 const axios = require('axios');
+const cheerio = require('cheerio');
 
-async function scrapeEtstur(hotelUrl, checkIn, checkOut) { // Added checkIn, checkOut parameters
+async function getHotelIdFromUrl(hotelUrl) {
   try {
-    // 1) Otel sayfasını çek
-    const pageResp = await axios.get(hotelUrl);
-    const html = pageResp.data;
-
-    // 2) hotelId'yi regex ile al
-    const idMatch = html.match(/"hotelId":"(.*?)"/);
-    if (!idMatch) {
-      console.log(`[DEBUG] hotelId bulunamadı for URL: ${hotelUrl}`);
-      throw new Error('hotelId bulunamadı');
-    }
-    const hotelId = idMatch[1];
-    console.log(`[DEBUG] Çekilen hotelId: ${hotelId}`);
-
-    // 3) Otel adını basitçe URL'den alalım (daha sağlıklı için sayfadan çekilebilir, bu sadece bir örnek)
-    const hotelName = decodeURIComponent(hotelUrl.split('/').pop().replace(/-/g, ' '));
-
-    // 4) API isteği için payload hazırla
-    const payload = {
-      hotelId,
-      checkIn: checkIn, // Use dynamic checkIn
-      checkOut: checkOut, // Use dynamic checkOut
-      room: {
-        adultCount: 2,
-        childCount: 0,
-        childAges: [],
-        infantCount: 0,
-      }
-    };
-
-    // 5) POST isteği at
-    const apiResp = await axios.post('https://www.etstur.com/services/api/room', payload, {
+    const res = await axios.get(hotelUrl, {
       headers: {
-        'Content-Type': 'application/json'
+        "accept": "text/html",
+        "user-agent": "Mozilla/5.0"
       }
     });
-    console.log(`[DEBUG] API Yanıtı (data): ${JSON.stringify(apiResp.data, null, 2)}`);
 
-    // 6) Dönen JSON'dan fiyatları al
-    const rooms = apiResp.data.result.rooms; // result objesini ekledim
-    if (!rooms || rooms.length === 0) return { hotelName, price: 'Fiyat bulunamadı' };
+    const $ = cheerio.load(res.data);
+    const scriptContent = $('#__NEXT_DATA__').html();
 
-    let minPrice = Infinity;
-    let foundPrice = false;
+    if (!scriptContent) {
+      console.error(" __NEXT_DATA__ script not found.");
+      return null;
+    }
 
-    for (const room of rooms) {
-      if (room.subBoards && room.subBoards.length > 0) {
-        for (const subBoard of room.subBoards) {
-          if (subBoard.price && subBoard.price.discountedPrice) {
-            const currentPrice = subBoard.price.discountedPrice;
+    const jsonData = JSON.parse(scriptContent);
+    const hotelId = jsonData?.props?.pageProps?.data?.hotelId;
+
+    if (hotelId) {
+      console.log(` Hotel ID found: ${hotelId}`);
+      return hotelId;
+    } else {
+      console.warn(" Hotel ID not found.");
+      return null;
+    }
+  } catch (err) {
+    console.error(` Hata: ${err.message}`);
+    if (err.response) {
+      console.error(`[DEBUG] Response status: ${err.response.status}`);
+    }
+    return null;
+  }
+}
+
+async function scrapeEtsturForDateRange(hotelUrl, startDate, endDate, adultCount, childAges) {
+  try {
+    const hotelId = await getHotelIdFromUrl(hotelUrl);
+    if (!hotelId) {
+      throw new Error('hotelId bulunamadı');
+    }
+    console.log(`[DEBUG] Çekilen hotelId: ${hotelId}`);
+
+    const hotelName = decodeURIComponent(hotelUrl.split('/').pop().replace(/-/g, ' '));
+    const results = {};
+    let currentDate = new Date(startDate);
+    const stopDate = new Date(endDate);
+
+    while (currentDate <= stopDate) {
+      const checkIn = currentDate.toISOString().split('T')[0];
+      const nextDay = new Date(currentDate);
+      nextDay.setDate(currentDate.getDate() + 1);
+      const checkOut = nextDay.toISOString().split('T')[0];
+
+      console.log(`[INFO] Fiyatlar alınıyor: ${checkIn}`);
+
+      const refererUrl = new URL(hotelUrl);
+      refererUrl.searchParams.set('check_in', checkIn.replace(/-/g, '.'));
+      refererUrl.searchParams.set('check_out', checkOut.replace(/-/g, '.'));
+      refererUrl.searchParams.set('adult_1', adultCount);
+      refererUrl.searchParams.set('child_1', childAges.length);
+
+      const payload = {
+        hotelId,
+        checkIn,
+        checkOut,
+        room: {
+          adultCount: adultCount,
+          childCount: childAges.length,
+          childAges: childAges,
+          infantCount: 0,
+        }
+      };
+
+      const apiResp = await axios.post('https://www.etstur.com/services/api/room', payload, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Referer': refererUrl.href
+        }
+      });
+
+      const rooms = apiResp.data.result.rooms;
+      let minPrice = Infinity;
+      let foundPrice = false;
+
+      if (rooms && rooms.length > 0) {
+        for (const room of rooms) {
+          if (room.nightlyMinPrice && room.nightlyMinPrice.amount) {
+            const currentPrice = room.nightlyMinPrice.amount;
             if (currentPrice < minPrice) {
               minPrice = currentPrice;
               foundPrice = true;
@@ -59,15 +98,18 @@ async function scrapeEtstur(hotelUrl, checkIn, checkOut) { // Added checkIn, che
           }
         }
       }
+
+      results[checkIn] = foundPrice ? minPrice : 'Fiyat bulunamadı';
+      currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    const price = foundPrice ? `${minPrice} TL` : 'Fiyat bulunamadı';
-
-    return { hotelName, price };
+    return { hotelName, prices: results };
 
   } catch (error) {
-    return { hotelName: hotelUrl, price: `Hata: ${error.message}` };
+    console.error(`[ERROR] Hata oluştu: ${error.message}`);
+    return { hotelName: hotelUrl, error: `Hata: ${error.message}` };
   }
 }
 
-module.exports = { scrapeEtstur };
+module.exports = { scrapeEtsturForDateRange };
+
