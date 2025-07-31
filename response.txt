@@ -1,0 +1,310 @@
+Request URL
+https://www.etstur.com/services/api/room
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+104.20.17.144:443
+Referrer Policy
+strict-origin-when-cross-origin
+:authority
+www.etstur.com
+:method
+POST
+:path
+/services/api/room
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7
+authorization
+null
+content-length
+143
+content-type
+application/json
+cookie
+meiro_user_id_js=6a6f8413-14aa-46e0-920b-1776f37b0af9; _ga=GA1.1.500504650.1752826928; meiro_user_id=6a6f8413-14aa-46e0-920b-1776f37b0af9; meiro_synced_ga_cid=500504650.1752826928; homepageABTest=A-Variant; HotelListLimit=20; ListVariant=A-Variant; G_ENABLED_IDPS=google; SESSION=MmUzMTI1OTctOTJkNC00MzhjLWFmNzgtZDJmMWZlMTlhZGIw; meiro_session_id_js=MTc1Mzg3NjUwMDU2NiY2YTZmODQxMy0xNGFhLTQ2ZTAtOTIwYi0xNzc2ZjM3YjBhZjk=; wis_u=1697494f-8752-e048-92d5-4f30960738e9|1752826927577|10|||79; guest=%7B%22adultCount%22%3A2%2C%22childCount%22%3A0%2C%22childAges%22%3A%5B%5D%2C%22infantCount%22%3A0%7D; hotelSearchCheckIn=2025-07-30; hotelSearchCheckOut=2025-07-31; wis_v=1753876500788|6|offerdetail|1; meiro_session_id_used_ts_js=1753878042654; _ga_NKEQ5XES07=GS2.1.s1753876501$o10$g1$t1753878042$j12$l0$h0; _ga_PFP30B086E=GS2.1.s1753876500$o12$g1$t1753878371$j60$l0$h0
+origin
+https://www.etstur.com
+priority
+u=1, i
+referer
+https://www.etstur.com/Kas-Marin-Hotel?check_in=30.07.2025&check_out=31.07.2025&adult_1=2&child_1=0
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-origin
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+
+
+
+
+
+
+
+
+
+
+
+
+
+{hotelId: "swmjczmns221", checkIn: "2025-07-30", checkOut: "2025-07-31",…}
+checkIn
+: 
+"2025-07-30"
+checkOut
+: 
+"2025-07-31"
+hotelId
+: 
+"swmjczmns221"
+room
+: 
+{adultCount: 2, childCount: 0, childAges: [], infantCount: 0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "result": {
+        "roomSearchId": "1f7abe3d-6359-467b-b668-4a4f0a180917",
+        "earlyBookingInsuranceAvailable": false,
+        "rooms": [
+            {
+                "roomId": "102444",
+                "roomName": "Standart Üç Kişilik Oda, Kara Manzaralı, ",
+                "description": "3 kişilik konaklamalara uygun odalarımızda 1 &ccedil;ift kişilik yatak ve a&ccedil;ılabilen tek kişilik koltuk mevcuttur. Odalarımızın tesisin yan cephelerinde yer almakta olup, dağ manzaralıdır.",
+                "roomSize": 24,
+                "roomCapacity": null,
+                "maxChildCapacity": null,
+                "maxAdultCapacity": 2,
+                "bedTypes": [
+                    "Çift Kişilik Yatak",
+                    "Kanepe"
+                ],
+                "images": [
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/ZmlsZU5hbWU9RUtQMDA2NTQtSERSLTEuZG5nOQ_20220710142448.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/ZmlsZU5hbWU9RUtQMDA2NDUtSERS_20220710142436.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/ZmlsZU5hbWU9RUtQMDA2NDgtSERSLmpwZ2poeQ_20220726180009.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/ZmlsZU5hbWU9RUtQMDA2MjktSERSLmpwZ2lpaS1ZRU5J_20220726180009.jpg"
+                ],
+                "facilities": [
+                    {
+                        "label": "Bebek Karyolası*",
+                        "paid": true,
+                        "description": null
+                    },
+                    {
+                        "label": "Balkon veya Teras",
+                        "paid": false,
+                        "description": null
+                    }
+                ],
+                "badges": [],
+                "nightCount": 1,
+                "nightlyMinPrice": {
+                    "currency": "TL",
+                    "amount": 14133.81,
+                    "discountedPrice": null,
+                    "discountRate": null
+                },
+                "subBoards": [
+                    {
+                        "id": "512366swmjczmns2211920250730202507312Sales3g7k7o2ia9oi6o05n2x2fsf3o0k979n262zhpl82h6606olcefzt2wi9izwkwarvf6",
+                        "priceCode": "512366|swmjczmns221|19|2025-07-30|2025-07-31|2|Sales|3g7k7o2ia9oi6o05n2x2fsf3o0k979n26|2zhpl82h6606olcefzt2wi9izwkwarvf6",
+                        "boardType": {
+                            "code": "BB",
+                            "label": "Oda Kahvaltı",
+                            "icon": "fa-regular fa-croissant"
+                        },
+                        "cancellationDetails": [],
+                        "cancellation": "NO_CANCELLATION",
+                        "price": {
+                            "currency": "TL",
+                            "amount": 26667.56,
+                            "discountedPrice": 14133.81,
+                            "discountRate": 47
+                        },
+                        "availability": {
+                            "type": "AVAILABLE",
+                            "nightCount": null,
+                            "availableDate": null
+                        },
+                        "lastAllotmentCount": 2,
+                        "memberDealPrice": null,
+                        "cyprusSaveAmount": null,
+                        "dailyPrices": [
+                            {
+                                "date": "30/07/2025",
+                                "currency": "TRY",
+                                "amount": 14133.81
+                            }
+                        ],
+                        "packageSaleGain": null,
+                        "payAtHotelOnly": false,
+                        "badges": [
+                            {
+                                "icon": null,
+                                "label": "Özel fırsat indirimi!",
+                                "description": null,
+                                "type": "EXTRA",
+                                "info": null
+                            }
+                        ],
+                        "maximumInstallmentText": null,
+                        "campaignHighlightedPrice": null
+                    }
+                ],
+                "acceptChild": true,
+                "secretRoom": false
+            },
+            {
+                "roomId": "102447",
+                "roomName": "Bohem Suit Oda, Deniz Manzaralı, Özel Havuzlu",
+                "description": "Bu odalarımız deniz manzaralı ve 1 &ccedil;ift kişilik yataklıdır. Her odanın kendisine ait havuzu, g&uuml;neşlenme terası ve terasında oturma grubu bulunmaktadır. Oda i&ccedil;erisinde mini buzdolabı, i&ccedil;eceklerinizi hazırlayabileceğiniz mutfak tezgahı ve kahve makinası bulunmaktadır. Dileyen misafirlerimiz i&ccedil;in &uuml;cretli odaya kahvaltı ve oda servisimiz de bulunmaktadır. ",
+                "roomSize": 75,
+                "roomCapacity": null,
+                "maxChildCapacity": null,
+                "maxAdultCapacity": 2,
+                "bedTypes": [
+                    "Çift Kişilik Yatak"
+                ],
+                "images": [
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706097_DJI_01_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706100_SRF_0900_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706100_SRF_0915_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706101_SRF_0935_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706101_SRF_0945_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706103_SRF_0955_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/ZmlsZU5hbWU9SU1HXzUwNTc_20230920144156.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706098_SRF_0518_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706099_SRF_0692_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706102_SRF_0960_sml.jpg",
+                    "https://images.odamax.com/img/800x600/odamax/image/upload/Ka_Marin_Hotel_202507221706105_SRF_0982_sml.jpg"
+                ],
+                "facilities": [
+                    {
+                        "label": "Oda Servisi*",
+                        "paid": true,
+                        "description": null
+                    },
+                    {
+                        "label": "Balkon veya Teras",
+                        "paid": false,
+                        "description": null
+                    },
+                    {
+                        "label": "Kahve Makinesi",
+                        "paid": false,
+                        "description": null
+                    },
+                    {
+                        "label": "Özel Havuz",
+                        "paid": false,
+                        "description": null
+                    },
+                    {
+                        "label": "Buzdolabı ",
+                        "paid": false,
+                        "description": null
+                    },
+                    {
+                        "label": "Özel Giriş",
+                        "paid": false,
+                        "description": null
+                    },
+                    {
+                        "label": "Terasta Şezlong veya Sandalye",
+                        "paid": false,
+                        "description": null
+                    }
+                ],
+                "badges": [],
+                "nightCount": 1,
+                "nightlyMinPrice": null,
+                "subBoards": [
+                    {
+                        "id": null,
+                        "priceCode": null,
+                        "boardType": {
+                            "code": "BB",
+                            "label": "Oda Kahvaltı",
+                            "icon": "fa-regular fa-croissant"
+                        },
+                        "cancellationDetails": [],
+                        "cancellation": "NO_CANCELLATION",
+                        "price": {
+                            "currency": "TL",
+                            "amount": 53539.85,
+                            "discountedPrice": 28376.12,
+                            "discountRate": 47
+                        },
+                        "availability": {
+                            "type": "MIN_STAY",
+                            "nightCount": 2,
+                            "availableDate": null
+                        },
+                        "lastAllotmentCount": 2,
+                        "memberDealPrice": null,
+                        "cyprusSaveAmount": null,
+                        "dailyPrices": [
+                            {
+                                "date": "30/07/2025",
+                                "currency": "TRY",
+                                "amount": 28376.12
+                            }
+                        ],
+                        "packageSaleGain": null,
+                        "payAtHotelOnly": false,
+                        "badges": [],
+                        "maximumInstallmentText": null,
+                        "campaignHighlightedPrice": null
+                    }
+                ],
+                "acceptChild": true,
+                "secretRoom": false
+            }
+        ],
+        "minPrice": {
+            "currency": "TL",
+            "amount": 26667.56,
+            "discountedPrice": 14133.81,
+            "discountRate": 47
+        },
+        "includeTaxes": false,
+        "flightPackage": false,
+        "noDates": false,
+        "promotions": [],
+        "checkIn": "2025-07-30",
+        "checkOut": "2025-07-31"
+    }
+}

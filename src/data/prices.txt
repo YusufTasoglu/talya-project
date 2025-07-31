@@ -1,2 +1,17 @@
-Kas Marin Hotel | 7409 TL
-Concorde De Luxe Resort | 28620 TL
+Kas Marin Hotel
+  2025-08-01: 8321.78 TL
+  2025-08-02: Fiyat bulunamadı
+  2025-08-03: 7409.56 TL
+  2025-08-04: 9756.57 TL
+  2025-08-05: 8533.04 TL
+  2025-08-06: 8533.04 TL
+  2025-08-07: 8533.04 TL
+
+Concorde De Luxe Resort
+  2025-08-01: 27189.00 TL
+  2025-08-02: 27189.00 TL
+  2025-08-03: 27189.00 TL
+  2025-08-04: 27189.00 TL
+  2025-08-05: 46170.00 TL
+  2025-08-06: Fiyat bulunamadı
+  2025-08-07: Fiyat bulunamadı

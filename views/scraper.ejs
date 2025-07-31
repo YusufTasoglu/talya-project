@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otel Fiyat Scraper</title>
+    <link rel="stylesheet" href="/css/scraper-style.css">
+</head>
+<body>
+    <h1>Otel Fiyat Scraper</h1>
+
+    <form action="/scrape" method="POST">
+        <div class="form-group">
+            <label for="urls">Otel URL'leri (her satıra bir URL):</label>
+            <textarea id="urls" name="urls" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group-inline">
+            <div class="form-group">
+                <label for="startDate">Başlangıç Tarihi:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">Bitiş Tarihi:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="adultCount">Yetişkin Sayısı:</label>
+            <input type="number" id="adultCount" name="adultCount" min="1" value="2" required>
+        </div>
+
+        <button type="submit">Fiyatları Getir</button>
+    </form>
+
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+
+    <% if (results && results.length > 0) { %>
+        <h2>Sonuçlar</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Otel Adı</th>
+                        <% const dates = Object.keys(results[0].prices || {}); %>
+                        <% dates.forEach(date => { %>
+                            <th><%= new Date(date).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short' }) %></th>
+                        <% }); %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(result => { %>
+                        <tr>
+                            <td><%= result.hotelName %></td>
+                            <% if (result.error) { %>
+                                <td colspan="<%= dates.length %>" class="error"><%= result.error %></td>
+                            <% } else { %>
+                                <% dates.forEach(date => { %>
+                                    <td>
+                                        <% const price = result.prices[date]; %>
+                                        <%= price !== 'Fiyat bulunamadı' ? price.toFixed(2) + ' TL' : '-' %>
+                                    </td>
+                                <% }); %>
+                            <% } %>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } %>
+
+</body>
+</html>
