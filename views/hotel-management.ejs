@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otel Yönetimi - Rekabet Analizi</title>
+    <link rel="stylesheet" href="/css/hotel-management.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏨 Otel Yönetimi</h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Ana Sayfa</a>
+                <a href="/hotel-management" class="nav-link active">Otel Yönetimi</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="hotel-setup">
+                <h2>Otel Bilgilerinizi Tanımlayın</h2>
+                
+                <!-- Kendi Otel Bilgileri -->
+                <div class="section">
+                    <h3>🏠 Kendi Oteliniz</h3>
+                    <form id="ownHotelForm" class="hotel-form">
+                        <div class="form-group">
+                            <label for="ownHotelSearch">Otel Adı:</label>
+                            <div class="search-container">
+                                <input type="text" id="ownHotelSearch" placeholder="Otel adını yazın..." autocomplete="off" required>
+                                <div id="ownHotelSearchResults" class="search-results"></div>
+                            </div>
+                            <input type="text" id="ownHotelUrl" name="ownHotelUrl" readonly required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Kendi Otelimi Kaydet</button>
+                    </form>
+                </div>
+
+                <!-- Rakip Oteller -->
+                <div class="section">
+                    <h3>🎯 Rakip Oteller</h3>
+                    <p class="section-description">Rekabet analizi yapmak istediğiniz rakip otelleri ekleyin.</p>
+                    
+                    <div class="competitor-search">
+                        <div class="search-container">
+                            <input type="text" id="competitorSearch" placeholder="Rakip otel adını yazın..." autocomplete="off">
+                            <div id="competitorSearchResults" class="search-results"></div>
+                        </div>
+                        <button type="button" id="addCompetitorBtn" class="btn btn-secondary">Rakip Ekle</button>
+                    </div>
+
+                    <div id="competitorsList" class="competitors-list">
+                        <!-- Rakip oteller burada listelenecek -->
+                    </div>
+                </div>
+
+                <!-- Kaydet Butonu -->
+                                    <div class="actions">
+                        <button type="button" id="saveAllBtn" class="btn btn-success">Tüm Ayarları Kaydet</button>
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/hotel-management.js"></script>
+</body>
+</html> 

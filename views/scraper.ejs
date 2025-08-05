@@ -8,12 +8,31 @@
     <link rel="stylesheet" href="/css/scraper-style.css">
 </head>
 <body>
-    <h1>Otel Fiyat Scraper</h1>
+    <div class="container">
+        <header class="header">
+            <h1>🏨 Otel Fiyat Analizi Sistemi</h1>
+            <nav class="nav">
+                <a href="/" class="nav-link active">Ana Sayfa</a>
+                <a href="/hotel-management" class="nav-link">Otel Yönetimi</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <h2>Otel Fiyat Analizi</h2>
 
     <form action="/scrape" method="POST">
         <div class="form-group">
-            <label for="urls">Otel URL'leri (her satıra bir URL):</label>
-            <textarea id="urls" name="urls" rows="5" required></textarea>
+            <label for="hotelSearch">Otel Ara:</label>
+            <div class="search-container">
+                <input type="text" id="hotelSearch" placeholder="Otel adını yazın..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="urls">Seçilen Oteller:</label>
+            <div id="selectedHotels" class="selected-hotels"></div>
+            <textarea id="urls" name="urls" rows="3" required style="display: none;"></textarea>
         </div>
 
         <div class="form-group-inline">
@@ -30,6 +49,16 @@
         <div class="form-group">
             <label for="adultCount">Yetişkin Sayısı:</label>
             <input type="number" id="adultCount" name="adultCount" min="1" value="2" required>
+        </div>
+
+        <div class="form-group">
+            <label for="childCount">Çocuk Sayısı:</label>
+            <input type="number" id="childCount" name="childCount" min="0" max="4" value="0" required>
+        </div>
+
+        <div class="form-group" id="childAgesContainer" style="display: none;">
+            <label>Çocuk Yaşları:</label>
+            <div id="childAgesInputs"></div>
         </div>
 
         <button type="submit">Fiyatları Getir</button>
@@ -73,5 +102,185 @@
         </div>
     <% } %>
 
+    <script>
+        let selectedHotels = [];
+        let searchTimeout;
+
+        document.getElementById('hotelSearch').addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            
+            clearTimeout(searchTimeout);
+            
+            if (query.length < 2) {
+                hideSearchResults();
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                searchHotels(query);
+            }, 300);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                hideSearchResults();
+            }
+        });
+
+        async function searchHotels(query) {
+            try {
+                const response = await fetch(`/api/search-hotels?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                displaySearchResults(data.hotels);
+            } catch (error) {
+                console.error('Otel arama hatası:', error);
+                displaySearchResults([]);
+            }
+        }
+
+        function displaySearchResults(hotels) {
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (hotels.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result-item">Sonuç bulunamadı</div>';
+                resultsContainer.style.display = 'block';
+                return;
+            }
+
+            resultsContainer.innerHTML = hotels.map(hotel => `
+                <div class="search-result-item" onclick="selectHotel('${hotel.id}', '${hotel.name}', '${hotel.city}', '${hotel.url}', '${hotel.image || ''}')">
+                    <img src="${hotel.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xNSAyMEgzNVYzNUgxNVYyMFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHBhdGggZD0iTTEwIDE1SDQwVjIwSDEwVjE1WiIgZmlsbD0iI0NDQ0NDQyIvPgo8L3N2Zz4K'}" alt="${hotel.name}" class="hotel-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xNSAyMEgzNVYzNUgxNVYyMFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHBhdGggZD0iTTEwIDE1SDQwVjIwSDEwVjE1WiIgZmlsbD0iI0NDQ0NDQyIvPgo8L3N2Zz4K'">
+                    <div class="hotel-info">
+                        <div class="hotel-name">${hotel.name}</div>
+                        <div class="hotel-city">${hotel.city}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            resultsContainer.style.display = 'block';
+        }
+
+        function hideSearchResults() {
+            document.getElementById('searchResults').style.display = 'none';
+        }
+
+        function selectHotel(id, name, city, url, image) {
+            // Aynı oteli tekrar eklemeyi önle
+            if (selectedHotels.find(hotel => hotel.id === id)) {
+                return;
+            }
+
+            const hotel = { id, name, city, url, image };
+            selectedHotels.push(hotel);
+            
+            updateSelectedHotelsDisplay();
+            updateUrlsTextarea();
+            
+            // Arama alanını temizle
+            document.getElementById('hotelSearch').value = '';
+            hideSearchResults();
+        }
+
+        function removeHotel(hotelId) {
+            selectedHotels = selectedHotels.filter(hotel => hotel.id !== hotelId);
+            updateSelectedHotelsDisplay();
+            updateUrlsTextarea();
+        }
+
+        function updateSelectedHotelsDisplay() {
+            const container = document.getElementById('selectedHotels');
+            
+            if (selectedHotels.length === 0) {
+                container.innerHTML = '<p style="color: #666; font-style: italic;">Henüz otel seçilmedi</p>';
+                return;
+            }
+
+            container.innerHTML = selectedHotels.map(hotel => `
+                <div class="selected-hotel">
+                    <div class="selected-hotel-info">
+                        <img src="${hotel.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xNSAyMEgzNVYzNUgxNVYyMFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHBhdGggZD0iTTEwIDE1SDQwVjIwSDEwVjE1WiIgZmlsbD0iI0NDQ0NDQyIvPgo8L3N2Zz4K'}" alt="${hotel.name}" class="hotel-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xNSAyMEgzNVYzNUgxNVYyMFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHBhdGggZD0iTTEwIDE1SDQwVjIwSDEwVjE1WiIgZmlsbD0iI0NDQ0NDQyIvPgo8L3N2Zz4K'">
+                        <div>
+                            <div class="hotel-name">${hotel.name}</div>
+                            <div class="hotel-city">${hotel.city}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="remove-hotel" onclick="removeHotel('${hotel.id}')" title="Kaldır">×</button>
+                </div>
+            `).join('');
+        }
+
+        function updateUrlsTextarea() {
+            const urls = selectedHotels.map(hotel => hotel.url).join('\n');
+            document.getElementById('urls').value = urls;
+        }
+
+        // Çocuk sayısı değiştiğinde yaş input'larını güncelle
+        document.getElementById('childCount').addEventListener('change', function() {
+            updateChildAgesInputs();
+        });
+
+        function updateChildAgesInputs() {
+            const childCount = parseInt(document.getElementById('childCount').value) || 0;
+            const container = document.getElementById('childAgesContainer');
+            const inputsDiv = document.getElementById('childAgesInputs');
+            
+            if (childCount > 0) {
+                container.style.display = 'block';
+                inputsDiv.innerHTML = '';
+                
+                for (let i = 0; i < childCount; i++) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.name = `childAge${i}`;
+                    input.min = '0';
+                    input.max = '17';
+                    input.placeholder = `${i + 1}. çocuk yaşı`;
+                    input.required = true;
+                    input.style.marginBottom = '5px';
+                    input.style.width = '100%';
+                    input.style.padding = '8px';
+                    input.style.border = '1px solid #ccc';
+                    input.style.borderRadius = '4px';
+                    input.style.boxSizing = 'border-box';
+                    
+                    inputsDiv.appendChild(input);
+                }
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        // Form submit edilmeden önce çocuk yaşlarını topla
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const childCount = parseInt(document.getElementById('childCount').value) || 0;
+            const childAges = [];
+            
+            for (let i = 0; i < childCount; i++) {
+                const ageInput = document.querySelector(`input[name="childAge${i}"]`);
+                if (ageInput && ageInput.value) {
+                    childAges.push(parseInt(ageInput.value));
+                }
+            }
+            
+            // Çocuk yaşlarını hidden input'a ekle
+            let hiddenInput = document.getElementById('childAges');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.id = 'childAges';
+                hiddenInput.name = 'childAges';
+                document.querySelector('form').appendChild(hiddenInput);
+            }
+            hiddenInput.value = JSON.stringify(childAges);
+        });
+
+        // Sayfa yüklendiğinde seçili otelleri göster ve çocuk yaşlarını güncelle
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelectedHotelsDisplay();
+            updateChildAgesInputs();
+        });
+    </script>
+        </main>
+    </div>
 </body>
 </html>

@@ -3,10 +3,17 @@ const cheerio = require('cheerio');
 
 async function getHotelIdFromUrl(hotelUrl) {
   try {
-    const res = await axios.get(hotelUrl, {
+    console.log(`[DEBUG] Otel URL'si: ${hotelUrl}`);
+    
+    // URL'yi temizle (sondaki slash'i kaldır)
+    const cleanUrl = hotelUrl.replace(/\/$/, '');
+    console.log(`[DEBUG] Temizlenmiş URL: ${cleanUrl}`);
+    
+    const res = await axios.get(cleanUrl, {
       headers: {
         "accept": "text/html",
-        "user-agent": "Mozilla/5.0"
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+        "referer": "https://www.etstur.com/"
       }
     });
 
