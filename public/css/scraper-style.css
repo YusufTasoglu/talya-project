@@ -6,14 +6,15 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     min-height: 100vh;
-    color: #333;
+    color: #334155;
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -21,83 +22,136 @@ body {
 /* Header */
 .header {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 35px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .header h1 {
-    color: #2c3e50;
+    color: #1e293b;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 2.5em;
+    font-size: 2.8em;
     font-weight: 700;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .nav-link {
     text-decoration: none;
-    color: #7f8c8d;
-    padding: 10px 20px;
-    border-radius: 25px;
+    color: #64748b;
+    padding: 12px 24px;
+    border-radius: 12px;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 15px;
+    background: rgba(248, 250, 252, 0.8);
+    border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .nav-link:hover {
-    background: #3498db;
-    color: white;
+    background: rgba(241, 245, 249, 0.9);
+    color: #475569;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .nav-link.active {
-    background: #2980b9;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
     color: white;
+    box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
 }
 
 /* Ana İçerik */
 .main-content {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .main-content h2 {
-    color: #2c3e50;
+    color: #1e293b;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2em;
-    font-weight: 600;
+    margin-bottom: 40px;
+    font-size: 2.4em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 form {
-    background: #f8f9fa;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 800px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    max-width: 900px;
     margin: 0 auto;
-    border-left: 4px solid #3498db;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+}
+
+form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #475569 0%, #64748b 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.form-header h3 {
+    color: #1e293b;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-header p {
+    color: #64748b;
+    font-size: 14px;
+    font-style: italic;
+    margin: 0;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    position: relative;
 }
 
 .form-group-inline {
     display: flex;
-    gap: 20px;
-    margin-bottom: 15px;
+    gap: 25px;
+    margin-bottom: 25px;
 }
 
 .form-group-inline .form-group {
@@ -107,41 +161,64 @@ form {
 
 label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #475569;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 input[type="date"],
 input[type="number"],
 textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-size: 15px;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #475569;
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1);
+    background: rgba(255, 255, 255, 1);
 }
 
 textarea {
     resize: vertical;
+    min-height: 100px;
 }
 
 button {
     width: 100%;
-    padding: 12px 24px;
-    background: #3498db;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 button:hover {
-    background: #2980b9;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 4px 15px rgba(71, 85, 105, 0.3);
+}
+
+button:active {
+    transform: translateY(-1px);
 }
 
 .error {
@@ -153,33 +230,91 @@ button:hover {
 .table-responsive {
     width: 100%;
     overflow-x: auto;
-    margin-top: 20px;
+    margin-top: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: transparent;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
+    padding: 16px 20px;
+    border: none;
     text-align: left;
+    font-size: 14px;
 }
 
-thead {
-    background-color: #007bff;
+th {
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
     color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 13px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    transition: all 0.3s ease;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: rgba(247, 250, 252, 0.8);
 }
 
 tbody tr:hover {
-    background-color: #ddd;
+    background-color: rgba(71, 85, 105, 0.05);
+    transform: scale(1.01);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    font-weight: 500;
+    color: #334155;
+}
+
+td:first-child {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Kendi otelimiz için özel stil */
+.own-hotel-row {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-top: 2px solid #059669;
+    border-bottom: 2px solid #059669;
+}
+
+.own-hotel-row td:first-child {
+    color: #059669;
+    font-weight: 800;
+}
+
+.own-hotel-row td:first-child::before {
+    content: '🏠 ';
+    margin-right: 5px;
+}
+
+/* En ucuz fiyat için yeşil arka plan */
+.cheapest-price {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.2) 0%, rgba(5, 150, 105, 0.1) 100%);
+    color: #047857;
+    font-weight: 700;
 }
 
 /* Otel arama stilleri */
@@ -292,4 +427,198 @@ tbody tr:hover {
 
 .remove-hotel:hover {
     background: #d32f2f;
+}
+
+/* Yeni otel bilgileri stilleri */
+.hotel-info-section {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.hotel-info-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.hotel-info-section h3 {
+    color: #1a202c;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hotels-to-analyze {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hotel-to-analyze {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.hotel-to-analyze::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.hotel-to-analyze:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.hotel-to-analyze.own {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.05) 0%, rgba(255, 255, 255, 0.9) 100%);
+}
+
+.hotel-to-analyze.own::before {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.hotel-to-analyze.competitor {
+    background: linear-gradient(135deg, rgba(237, 137, 54, 0.05) 0%, rgba(255, 255, 255, 0.9) 100%);
+}
+
+.hotel-to-analyze.competitor::before {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+.hotel-badge {
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.hotel-to-analyze.own .hotel-badge {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.hotel-to-analyze.competitor .hotel-badge {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: white;
+}
+
+.hotel-details {
+    flex: 1;
+}
+
+.hotel-details .hotel-name {
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 6px;
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.hotel-details .hotel-city {
+    color: #718096;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.no-hotels {
+    text-align: center;
+    padding: 50px 30px;
+    color: #718096;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 2px dashed #cbd5e0;
+}
+
+.no-hotels p {
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.no-hotels .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.no-hotels .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.loading {
+    text-align: center;
+    color: #718096;
+    font-style: italic;
+    font-size: 16px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.error {
+    color: #e53e3e;
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.1) 0%, rgba(254, 215, 215, 0.1) 100%);
+    border: 1px solid rgba(245, 101, 101, 0.2);
+    border-radius: 12px;
+    margin: 15px 0;
+    backdrop-filter: blur(10px);
+}
+
+.error a {
+    color: #c53030;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid #c53030;
+    transition: all 0.3s ease;
+}
+
+.error a:hover {
+    color: #9b2c2c;
+    border-bottom-color: #9b2c2c;
 }

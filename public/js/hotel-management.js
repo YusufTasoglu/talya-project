@@ -252,32 +252,87 @@ function saveOwnHotel() {
 }
 
 // Tüm ayarları kaydet
-function saveAllSettings() {
-    // Kendi oteli kaydet
-    if (ownHotel) {
-        localStorage.setItem('ownHotel', JSON.stringify(ownHotel));
+async function saveAllSettings() {
+    try {
+        // Server'a kaydet
+        const response = await fetch('/api/save-hotels', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ownHotel: ownHotel,
+                competitors: competitors
+            })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            // Local storage'a da kaydet
+            if (ownHotel) {
+                localStorage.setItem('ownHotel', JSON.stringify(ownHotel));
+            }
+            localStorage.setItem('competitors', JSON.stringify(competitors));
+            
+            showNotification('Tüm ayarlar başarıyla kaydedildi', 'success');
+        } else {
+            showNotification('Ayarlar kaydedilirken hata oluştu: ' + result.message, 'error');
+        }
+    } catch (error) {
+        console.error('Kaydetme hatası:', error);
+        showNotification('Ayarlar kaydedilirken hata oluştu', 'error');
     }
-    
-    // Rakipleri kaydet
-    localStorage.setItem('competitors', JSON.stringify(competitors));
-    
-    showNotification('Tüm ayarlar kaydedildi', 'success');
 }
 
 // Kaydedilmiş verileri yükle
-function loadSavedData() {
-    // Kendi oteli yükle
-    const savedOwnHotel = localStorage.getItem('ownHotel');
-    if (savedOwnHotel) {
-        ownHotel = JSON.parse(savedOwnHotel);
-        fillOwnHotelForm(ownHotel);
-    }
-    
-    // Rakipleri yükle
-    const savedCompetitors = localStorage.getItem('competitors');
-    if (savedCompetitors) {
-        competitors = JSON.parse(savedCompetitors);
-        updateCompetitorsList();
+async function loadSavedData() {
+    try {
+        // Server'dan veri yükle
+        const response = await fetch('/api/get-hotels');
+        const data = await response.json();
+        
+        if (data.ownHotel) {
+            ownHotel = data.ownHotel;
+            fillOwnHotelForm(ownHotel);
+        }
+        
+        if (data.competitors && data.competitors.length > 0) {
+            competitors = data.competitors;
+            updateCompetitorsList();
+        }
+        
+        // Local storage'dan da yükle (fallback)
+        if (!data.ownHotel) {
+            const savedOwnHotel = localStorage.getItem('ownHotel');
+            if (savedOwnHotel) {
+                ownHotel = JSON.parse(savedOwnHotel);
+                fillOwnHotelForm(ownHotel);
+            }
+        }
+        
+        if (!data.competitors || data.competitors.length === 0) {
+            const savedCompetitors = localStorage.getItem('competitors');
+            if (savedCompetitors) {
+                competitors = JSON.parse(savedCompetitors);
+                updateCompetitorsList();
+            }
+        }
+    } catch (error) {
+        console.error('Veri yükleme hatası:', error);
+        
+        // Hata durumunda local storage'dan yükle
+        const savedOwnHotel = localStorage.getItem('ownHotel');
+        if (savedOwnHotel) {
+            ownHotel = JSON.parse(savedOwnHotel);
+            fillOwnHotelForm(ownHotel);
+        }
+        
+        const savedCompetitors = localStorage.getItem('competitors');
+        if (savedCompetitors) {
+            competitors = JSON.parse(savedCompetitors);
+            updateCompetitorsList();
+        }
     }
 }
 

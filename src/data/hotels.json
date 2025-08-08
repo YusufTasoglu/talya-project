@@ -1,0 +1,19 @@
+{
+  "ownHotel": {
+    "id": "Kas-Marin-Hotel",
+    "name": "Kaş Marin Hotel, Kaş",
+    "city": "Antalya",
+    "url": "https://www.etstur.com/Kas-Marin-Hotel",
+    "image": ""
+  },
+  "competitors": [
+    {
+      "id": "Heritage-by-Cimen-Hotel",
+      "name": "Heritage by Çimen Hotel, Alanya Merkez",
+      "city": "Antalya",
+      "url": "https://www.etstur.com/Heritage-by-Cimen-Hotel",
+      "image": ""
+    }
+  ],
+  "lastUpdated": "2025-08-08T10:40:45.046Z"
+}
